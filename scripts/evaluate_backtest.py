@@ -132,7 +132,7 @@ def main():
     # Generate synthetic demo data if file doesn't exist
     input_path = Path(args.input)
     if not input_path.exists():
-        print(f"Input file not found. Generating synthetic demo data...")
+        print(f"Input file not found. Generating synthetic demo data")
         # Generate synthetic data
         dates = pd.date_range('2020-01-01', '2024-01-01', freq='D')
         np.random.seed(1337)

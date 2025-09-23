@@ -213,22 +213,22 @@ class FeatureEngineer:
 
     def create_all_features(self, df: pd.DataFrame) -> pd.DataFrame:
         """Create all feature groups."""
-        print("Creating price features...")
+        print("Creating price features")
         price_features = self.create_price_features(df)
 
-        print("Creating volume features...")
+        print("Creating volume features")
         volume_features = self.create_volume_features(df)
 
-        print("Creating volatility features...")
+        print("Creating volatility features")
         volatility_features = self.create_volatility_features(df)
 
-        print("Creating momentum features...")
+        print("Creating momentum features")
         momentum_features = self.create_momentum_features(df)
 
-        print("Creating microstructure features...")
+        print("Creating microstructure features")
         micro_features = self.create_microstructure_features(df)
 
-        print("Creating statistical features...")
+        print("Creating statistical features")
         stat_features = self.create_statistical_features(df)
 
         # Combine all features

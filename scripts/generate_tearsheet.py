@@ -260,7 +260,7 @@ class TearsheetGenerator:
                 df.set_index('date', inplace=True)
         else:
             # Generate synthetic data for demo
-            print("Generating synthetic data for demo...")
+            print("Generating synthetic data for demo")
             dates = pd.date_range('2020-01-01', '2024-01-01', freq='D')
             np.random.seed(1337)
             returns = np.random.normal(0.0002, 0.01, len(dates))
