@@ -1,0 +1,25 @@
+{
+  "metrics": {
+    "http_req_duration": {
+      "p(99)": 18.2,
+      "p(95)": 12.4,
+      "p(90)": 9.8,
+      "median": 5.2,
+      "avg": 6.7,
+      "min": 0.8,
+      "max": 142.3
+    },
+    "http_reqs": {
+      "rate": 14234.5,
+      "count": 854070
+    },
+    "http_req_failed": {
+      "rate": 0.0001,
+      "passes": 853990,
+      "fails": 80
+    },
+    "vus": 200,
+    "duration": "60s",
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+}

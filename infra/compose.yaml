@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  router:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.router
+    ports:
+      - "8080:8080"
+    environment:
+      - ROUTER_HOST=0.0.0.0
+      - ROUTER_PORT=8080
+      - REDIS_HOST=redis
+      - PROMETHEUS_PORT=9090
+    depends_on:
+      - redis
+      - prometheus
+    networks:
+      - trading-net
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - trading-net
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+    networks:
+      - trading-net
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_INSTALL_PLUGINS=
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - trading-net
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-trader}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - POSTGRES_DB=${POSTGRES_DB:-trading}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - trading-net
+    restart: unless-stopped
+
+  nats:
+    image: nats:2-alpine
+    ports:
+      - "4222:4222"
+      - "8222:8222"  # Monitoring
+    command:
+      - "-js"  # Enable JetStream
+      - "-m"
+      - "8222"
+    networks:
+      - trading-net
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"  # Console
+    environment:
+      - MINIO_ROOT_USER=${S3_ACCESS_KEY:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${S3_SECRET_KEY:-minioadmin}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    networks:
+      - trading-net
+    restart: unless-stopped
+
+networks:
+  trading-net:
+    driver: bridge
+
+volumes:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+  postgres-data:
+  minio-data:
+  nats-data:

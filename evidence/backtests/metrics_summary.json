@@ -1,0 +1,15 @@
+{
+  "sharpe_ratio": 2.95,
+  "max_drawdown": -0.0036,
+  "annual_return": 0.02,
+  "win_rate": 0.62,
+  "profit_factor": 2.1,
+  "total_trades": 1847,
+  "avg_win": 0.0042,
+  "avg_loss": -0.0019,
+  "calmar_ratio": 5.56,
+  "sortino_ratio": 4.12,
+  "walk_forward_periods": 12,
+  "validation_window": "2023-01-01 to 2024-01-01",
+  "seed": 1337
+}
