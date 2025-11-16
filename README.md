@@ -5,6 +5,47 @@
 Skeleton prod **AI trading infrastructure** for research/recruiting: FastAPI router, GPU/CPU backtesting, ingestion, monitoring, **reproducible evidence**.
 **Not for live trading LOL.**
 
+
+```
+                   ┌──────────────────────────┐
+                   │     Data Ingestion       │
+                   │  (OHLCV, News, Embeds)   │
+                   └───────────┬──────────────┘
+                               │
+                               ▼
+                ┌───────────────────────────────┐
+                │   Preprocessing & Alignment   │
+                │ (time-index, feature windows) │
+                └───────────┬───────────────────┘
+                            │
+     ┌──────────────────────┼─────────────────────────┐
+     │                      │                         │
+     ▼                      ▼                         ▼
+┌──────────────┐    ┌────────────────┐      ┌───────────────────┐
+│ Sentiment     │    │ Technical      │      │ Contradiction     │
+│ Agent         │    │ Agent          │      │ Agent             │
+│ (FinBERT/LLM) │    │ (Indicators)   │      │ (semantic vs tech)│
+└──────┬────────┘    └──────┬─────────┘      └────────┬──────────┘
+       │                    │                        │
+       └──────────┬─────────┴──────────┬──────────────┘
+                  ▼                    ▼
+           ┌──────────────────────────────────┐
+           │ Fusion Agent (Multi-Modal Model) │
+           │  attention over embeddings+tech  │
+           └───────────────────┬──────────────┘
+                               │
+                               ▼
+                    ┌────────────────────┐
+                    │   Execution Agent  │
+                    │ (router: cooldown, │
+                    │ safety, throttling)│
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                      LIVE DECISION
+
+```
+
 ---
 
 ## TL;DR
