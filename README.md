@@ -1,15 +1,13 @@
 # AI Trading Infrastructure (Reference Stack)
 
 [![Performance CI](https://github.com/rochmanofenna/Mini-Buy-Side-Reference-Stack/actions/workflows/perf.yml/badge.svg)](https://github.com/rochmanofenna/Mini-Buy-Side-Reference-Stack/actions/workflows/perf.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Reproducible Evidence](https://img.shields.io/badge/evidence-backtests%20%7C%20k6%20%7C%20prom-snapshot-blue)](#reproducible-evidence)
 
-Production-style **AI trading infrastructure** for research/recruiting: FastAPI router, GPU/CPU backtesting, ingestion, monitoring, and **reproducible evidence**.
-**Not for live trading.**
+Skeleton prod **AI trading infrastructure** for research/recruiting: FastAPI router, GPU/CPU backtesting, ingestion, monitoring, **reproducible evidence**.
+**Not for live trading LOL.**
 
 ---
 
-## TL;DR (What this proves)
+## TL;DR
 
 - **Backtests (demo dataset):** **Sharpe 2.95**, **MaxDD −0.36%**, **Ann. return ~2%** (walk-forward).
   Evidence: `evidence/backtests/metrics_summary.json` + charts.
